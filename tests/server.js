@@ -22,7 +22,7 @@ export const handlers = [
       return res(
         ctx.status(400),
         ctx.json({
-          errorMessage: 'Les champs food et drink sont obligatoires',
+          message: 'Les champs food et drink sont obligatoires',
         }),
       )
     }
