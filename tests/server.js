@@ -16,6 +16,18 @@ export const handlers = [
     }
     return res(ctx.json({data: req.body}))
   }),
+  rest.post('/form', (req, res, ctx) => {
+    const {food, drink} = req.body
+    if (!food || !drink) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          errorMessage: 'Les champs food et drink sont obligatoires',
+        }),
+      )
+    }
+    return res(ctx.status(200), ctx.json({success: true}))
+  }),
 ]
 
 export const server = setupServer(...handlers)
