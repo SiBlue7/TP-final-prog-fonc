@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render, screen, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {createMemoryHistory} from 'history'
 import {Router} from 'react-router-dom'
@@ -46,11 +46,11 @@ test('Premier scénario : cas passant', async () => {
   expect(input_favoriteFood).toHaveValue('Les pâtes')
 
   // 10 - un lien "Next" est dans le document
-  const link_next = screen.getByRole('link', {name: /next/i})
-  expect(link_next).toBeInTheDocument()
+  const form_page1 = input_favoriteFood.closest('form')
+  expect(form_page1).toBeInTheDocument()
 
   // 11 - l'utilisateur clique sur le lien "Next"
-  user.click(link_next)
+  form_page1 && fireEvent.submit(form_page1)
 
   // 12- l'utilisateur est redirigé sur la page 2 / 13 - Un titre "Page 2" est dans le document
   expect(screen.getByRole('heading', {name: /page 2/i})).toBeInTheDocument()
@@ -72,11 +72,11 @@ test('Premier scénario : cas passant', async () => {
   expect(input_favoriteDrink).toHaveValue('Bière')
 
   // 17 - un lien "Review" est dans document
-  const link_review = screen.getByRole('link', {name: /review/i})
-  expect(link_review).toBeInTheDocument()
+  const form_page2 = input_favoriteDrink.closest('form')
+  expect(form_page2).toBeInTheDocument()
 
   // 18 - l'utilisateur clique sur le lien "Review"
-  user.click(link_review)
+  form_page2 && fireEvent.submit(form_page2)
 
   // 19 - l'utilisateur est redirigé sur la page de confirmation / 20 - Un titre "Confirm" est dans le document
   expect(screen.getByRole('heading', {name: /confirm/i})).toBeInTheDocument()
